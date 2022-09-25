@@ -1,0 +1,165 @@
+<html lang="ja">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+    <title>home</title>
+
+    <style>
+        #child1 {
+            color: rgb(255, 255, 255);
+        }
+
+        #child2 {
+            color: rgb(255, 255, 255);
+        }
+
+        @media (min-width: 600px) {
+            #parent {
+                display: flex;
+            }
+
+            #child1 {
+                flex-grow: 1;
+            }
+
+            #child2 {
+                flex-grow: 1;
+            }
+        }
+    </style>
+
+    <style>
+    .example3{
+        background: linear-gradient(to right,#ff0000,#ffa200,#fff100,#00ff73,#0091ff,#0008ff,#ff00e6,#ff0000) 0 / 200%;
+        animation: 50s example3 linear infinite;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes example3{
+    100% { background-position: 200%; }
+    }
+    </style>
+</head>
+
+<body bgcolor="#000000" link="#808080" vlink="#808080" alink="#808080">
+    <table border="0" bgcolor="#000000" width="804" summary="全体">
+
+        <tbody>
+            <tr>
+                <td bgcolor="#000000" width="800">
+                    <div id="parent">
+                        <table id="child1" align="left" width="640">
+                            <tbody>
+                                <tr>
+                                    <td width="120">
+                                        <!--本文ここから-->
+                                        <font color="#FFFFFF">
+                                            <p align="left">wiiu tools<br>&nbsp;<br>　koragen<br>　　　<a
+                                                    href="">koragen</a><br>&nbsp;<br>&nbsp;<br>&nbsp;<br>wiiuに関するツールのまとめページ<br>&nbsp;<br>　ページたち<br>
+                                            </p>
+                                            <table align="center" bodercolor="#FFFFFF" width="560">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="top" width="256">
+                                                            <a href="bctrl_searcher\index.html">
+                                                                <img src="f/i_1.png" border="0" width="32"
+                                                                    height="32">bctrl_searcher</a><br>
+                                                            <a href="code-database\index.html">
+                                                                <img src="f/i_3.png" border="0" width="32"
+                                                                    height="32">code-database</a><br>
+                                                            <a href="csm-convertor\index.html">
+                                                                <img src="f/i_5.png" border="0" width="32"
+                                                                    height="32">csm-convertor</a><br>
+                                                            <a href="func2writeAsm\index.html">
+                                                                <img src="f/i_7.png" border="0" width="32"
+                                                                    height="32">func2writeAsm</a><br>
+                                                            <a href="music-on-minecraft-wiiu\index.html">
+                                                                <img src="f/i_9.png" border="0" width="32"
+                                                                    height="32">music-on-minecraft-wiiu</a><br>
+                                                        </td>
+                                                        <td valign="top">
+                                                            <a href="ppc_obfuscator_tool\index.html">
+                                                                <img src="f/i_2.png" border="0" width="32"
+                                                                    height="32">ppc_obfuscator_tool</a><br>
+                                                            <a href="f_4.html">
+                                                                <img src="f/i_4.png" border="0" width="32"
+                                                                    height="32">none</a><br>
+                                                            <a href="f_6.html">
+                                                                <img src="f/i_6.png" border="0" width="32"
+                                                                    height="32">none</a><br>
+                                                            <a href="f_8.html">
+                                                                <img src="f/i_8.png" border="0" width="32"
+                                                                    height="32">none</a><br>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </font>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="child2">
+                            <pre id="d" class="example3"></pre>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr height="80"></tr>
+        </tbody>
+    </table>
+</body>
+
+
+<script>
+    var pretag = document.getElementById('d');
+
+    var tmr1 = undefined, tmr2 = undefined;
+    var A = 1, B = 1;
+
+    const he = 70;
+    const wi = 170;
+
+    const ms = 2.8;
+
+    // This is copied, pasted, reformatted, and ported directly from my original
+    // donut.c code
+    var asciiframe = function () {
+        var b = [];
+        var z = [];
+        A += 0.01;
+        B += 0.003;
+        var cA = Math.cos(A), sA = Math.sin(A),
+            cB = Math.cos(B), sB = Math.sin(B);
+        for (var k = 0; k < wi * he; k++) {
+            b[k] = k % wi == wi - 1 ? "\n" : " ";
+            z[k] = 0;
+        }
+        for (var j = 0; j < 6.28; j += 0.07) { // j <=> theta
+            var ct = Math.cos(j), st = Math.sin(j);
+            for (i = 0; i < 6.28; i += 0.02) {   // i <=> phi
+                var sp = Math.sin(i), cp = Math.cos(i),
+                    h = ct + 2, // R1 + R2*cos(theta)
+                    D = 1 / (sp * h * sA + st * cA + 5), // this is 1/z
+                    t = sp * h * cA - st * sA; // this is a clever factoring of some of the terms in x' and y'
+
+                var x = 0 | (30 * ms + 30 * ms * D * (cp * h * cB - t * sB)),
+                    y = 0 | (12 * ms + 15 * ms * D * (cp * h * sB + t * cB)),
+                    o = x + wi * y,
+                    N = 0 | (8 * ((st * sA - sp * ct * cA) * cB - sp * ct * sA - st * cA - cp * ct * sB));
+                if (y < he && y >= 0 && x >= 0 && x < wi - 1 && D > z[o]) {
+                    z[o] = D;
+                    b[o] = ".,-~:;=ui*#$@W"[N > 0 ? N : 0];//.,-~:;=!*#$@
+                }
+            }
+        }
+        pretag.innerHTML = b.join("");
+    };
+    tmr1 = setInterval(asciiframe, 0);
+    asciiframe();
+
+    
+</script>
+
+</html>
